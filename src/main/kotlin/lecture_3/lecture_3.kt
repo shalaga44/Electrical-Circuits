@@ -1,11 +1,43 @@
+@file:Suppress("UNREACHABLE_CODE")
+
 package lecture_3
 
-import ElectricalCircuits.A
+import ElectricalCircuits.*
 
 fun main() {
-    example1()
+    example2()
 }
 
+fun example2() {
+    val E1 = 4.volt
+    val r1 = 2.Ω
+
+    val R = 4.Ω
+
+    val E2 = 2.volt
+    val r2 = 1.Ω
+
+//    println("${E1.value} = I1${r1.value} + ((I1 + I2)${R.value})")
+//    println("${E2.value} = I2${r2.value} + ((I1 + I2)${R.value})")
+
+    val a = (r1 + R).value
+    val b = R.value
+    val e = E1.value
+//    println("${a.toInt()} I1 + ${b.toInt()} I2 = ${e.toInt()}")
+    val c = R.value
+    val d = (r2 + R).value
+    val f = E2.value
+//    println("${c.toInt()} I1 + ${d.toInt()} I2 = ${f.toInt()}")
+
+    val det = a * d - b * c
+    val I1 = ((d * e - b * f) / det).ampere
+    val I2 = ((a * f - c * e) / det).ampere
+    println("I1= $I1")
+    println("I2= $I2")
+
+    val IR: Current = I1 + I2
+    println("IR= $IR")
+}
 
 fun example1() {
     println("\n> A :Kirchhoff’s Current Law:")
@@ -22,8 +54,8 @@ fun example1() {
 
     println("\n> B :Kirchhoff’s Voltage Law:")
 
-//    val E: Voltage = TODO()
-//    val I: Current = TODO()
+//    val E: Voltage = T O D O()
+//    val I: Current = T O D O()
 //
 //    3.V + 6.V + E - 4.V =
 //        (I * 2.Ω) + (I * 2.5.Ω) + (I * 1.5.Ω) + (I * 1.5.Ω) + (I * 1)
@@ -33,4 +65,3 @@ fun example1() {
 
 
 }
-
