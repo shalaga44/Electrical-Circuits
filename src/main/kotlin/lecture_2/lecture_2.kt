@@ -1,3 +1,7 @@
+package lecture_2
+
+import ElectricalCircuits.*
+
 fun main() {
 
 

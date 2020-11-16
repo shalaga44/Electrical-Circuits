@@ -1,3 +1,5 @@
+package ElectricalCircuits
+
 data class Frequency(override val value: Double) : PhysicalValue(value) {
     override fun toString() = "$value Hz"
 }

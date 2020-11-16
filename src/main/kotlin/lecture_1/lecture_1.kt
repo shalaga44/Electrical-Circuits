@@ -1,3 +1,7 @@
+package lecture_1
+
+import ElectricalCircuits.*
+
 fun main() {
     val force = 10.kg * 5.Acceleration
     val acceleration = 10.newton / 10.kg

@@ -1,3 +1,5 @@
+package ElectricalCircuits
+
 open class PhysicalValue(open val value: Double) {
 //    operator fun plus(other: PhysicalValue) = value + other.value
 //    operator fun minus(other: PhysicalValue) = value - other.value
