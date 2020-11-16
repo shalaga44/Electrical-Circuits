@@ -5,7 +5,37 @@ package lecture_3
 import ElectricalCircuits.*
 
 fun main() {
-    example2()
+    example3()
+}
+
+fun example3() {
+    val R1 = 0.5.ohm
+    val E1 = 4.volt
+    val E2 = 12.volt
+    val R2 = 2.ohm
+    val R3 = 5.ohm
+
+//    E1 + E2 = (I1 * R1) + (I2 * R2)
+    val a = R1.value
+    val b = R2.value
+    val e = (E1 + E2).value
+
+//    E2 = (I2 * R2) - ((I1 - I2) * R3)
+//    E2 = (I2 * R2) - (I1 * R3) - (I2 * R3)
+//    E2 = (I2 * (R2+R3)) - (I1 * R3)
+    val c = -(R3).value
+    val d = (R2 + R3).value
+    val f = E2.value
+
+    val det = a * d - b * c
+    val I1 = ((d * e - b * f) / det).ampere
+    val I2 = ((a * f - c * e) / det).ampere
+    println("I1= $I1")
+    println("I2= $I2")
+
+    val IR: Current = I1 - I2
+    println("IR= $IR")
+
 }
 
 fun example2() {
@@ -65,3 +95,10 @@ fun example1() {
 
 
 }
+
+
+
+
+
+
+
