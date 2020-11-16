@@ -78,6 +78,7 @@ data class Voltage(override val value: Double) : PhysicalValue(value) {
     operator fun div(R: Resistance): Current = (this.value / R.value).ampere
     operator fun times(I: Current): Power = (this.value * I.value).watt
     operator fun plus(other: Voltage) = (this.value + other.value).volt
+    operator fun minus(other: Voltage) = (this.value - other.value).volt
     override fun toString() = "$value V"
 }
 
