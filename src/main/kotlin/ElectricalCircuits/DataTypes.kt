@@ -73,6 +73,8 @@ data class Resistance(override val value: Double) : PhysicalValue(value) {
     override fun toString() = "$value Ω"
     fun CurrentDivider(totalCurrent: Current, vararg resistances: Resistance): Current =
         totalCurrent * ((1.0 / (resistances.fold(1.0 / this) { acc, r -> ((1.0 / r) + acc) }) / this))
+    fun VoaltageDivider(Vin: Voltage, vararg resistances: Resistance): Voltage =
+        (Vin * (this.value / (resistances.fold(this) { acc, r -> acc + r })))
 
 
 }
@@ -85,6 +87,8 @@ data class Voltage(override val value: Double) : PhysicalValue(value) {
     operator fun div(I: Current): Resistance = (this.value / I.value).ohm
     operator fun div(R: Resistance): Current = (this.value / R.value).ampere
     operator fun times(I: Current): Power = (this.value * I.value).watt
+    operator fun times(V: Voltage): Voltage = (this.value * V.value).volt
+    operator fun times(d: Double): Voltage = (this.value * d).volt
     operator fun plus(other: Voltage) = (this.value + other.value).volt
     operator fun minus(other: Voltage) = (this.value - other.value).volt
     override fun toString() = "$value V"
