@@ -58,6 +58,7 @@ data class Current(override val value: Double) : PhysicalValue(value) {
     operator fun minus(other: Current) = (this.value - other.value).ampere
     operator fun plus(other: Current) = (this.value + other.value).ampere
     override fun toString() = "$value A"
+    operator fun times(d: Double): Current = (this.value * d).ampere
 }
 
 val Number.A get() = Current(this.toDouble())
@@ -65,10 +66,17 @@ val Number.ampere get() = Current(this.toDouble())
 
 data class Resistance(override val value: Double) : PhysicalValue(value) {
     operator fun times(I: Current): Voltage = (this.value * I.value).volt
+    operator fun times(R: Resistance): Resistance = (this.value * R.value).ohm
+    operator fun div(R: Resistance): Resistance = (this.value / R.value).ohm
     operator fun minus(other: Resistance) = (this.value - other.value).ohm
     operator fun plus(other: Resistance) = (this.value + other.value).ohm
     override fun toString() = "$value Ω"
+    fun CurrentDivider(totalCurrent: Current, vararg resistances: Resistance): Current =
+        totalCurrent * ((1.0 / (resistances.fold(1.0 / this) { acc, r -> ((1.0 / r) + acc) }) / this))
+
+
 }
+
 
 val Number.Ω get() = Resistance(this.toDouble())
 val Number.ohm get() = Resistance(this.toDouble())

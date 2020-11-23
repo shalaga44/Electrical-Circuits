@@ -5,7 +5,45 @@ package lecture_3
 import ElectricalCircuits.*
 
 fun main() {
-    example3()
+    example4()
+}
+
+fun example4() {
+    val E1 = 4.volt
+    val r1 = 2.ohm
+
+    val R = 4.ohm
+
+    val E2 = 2.volt
+    val r2 = 1.ohm
+
+    // del E2
+    val newR0 = (R * r2) / (R + r2)
+    val I1 = E1 / (newR0 + r1)
+    println("I1=$I1")
+    val I2 = R.CurrentDivider(I1, r2)
+    println("I2=$I2")
+    val I3 = r2.CurrentDivider(I1, R)
+    println("I3=$I3")
+
+    // del E1
+    val newR1 = (R * r1) / (R + r1)
+    val I4 = E2 / (newR1 + r2)
+    println("I4=$I4")
+    val I5 = R.CurrentDivider(I4, r1)
+    println("I5=$I5")
+    val I6 = r1.CurrentDivider(I4, R)
+    println("I6=$I6")
+
+    // sum it up
+    val currentLeft = I1 - I6
+    println("currentLeft=$currentLeft")
+    val currentRight = I3 - I4
+    println("currentRight=$currentRight")
+    val currentInR = I2 + I5
+    println("currentInR=$currentInR")
+
+
 }
 
 fun example3() {

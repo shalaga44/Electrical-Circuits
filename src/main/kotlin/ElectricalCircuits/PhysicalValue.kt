@@ -10,8 +10,8 @@ open class PhysicalValue(open val value: Double) {
 
 }
 
-operator fun Double.div(v: PhysicalValue): Number = this / v.value
-operator fun Double.rem(v: PhysicalValue): Number = this % v.value
-operator fun Double.times(v: PhysicalValue): Number = this * v.value
-operator fun Double.minus(v: PhysicalValue): Number = this - v.value
-operator fun Double.plus(v: PhysicalValue): Number = this + v.value
+operator fun Double.div(v: PhysicalValue): Double = this / v.value
+operator fun Double.rem(v: PhysicalValue): Double = this % v.value
+operator fun Double.times(v: PhysicalValue): Double = this * v.value
+operator fun Double.minus(v: PhysicalValue): Double = this - v.value
+operator fun Double.plus(v: PhysicalValue): Double = this + v.value
