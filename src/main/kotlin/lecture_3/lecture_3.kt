@@ -1,11 +1,31 @@
-@file:Suppress("UNREACHABLE_CODE")
-
 package lecture_3
 
 import ElectricalCircuits.*
 
 fun main() {
-    example4()
+    `Thévenin’s theorem`()
+}
+
+fun `Thévenin’s theorem`() {
+    val R1 = 2.ohm
+    val E = 10.volt
+    val R2 = 8.ohm
+    val R = 10.ohm
+    val R3 = 5.ohm
+
+    // del R
+    val I1 = E / (R1 + R2)
+    println("I=$I1")
+    val pd_R2 = I1 * R2
+    println("P.d. accros R2=$pd_R2")
+
+    // del E
+    val r = R3 + (R1 * R2) / (R1 + R2)
+    println("r=$r")
+
+    // sum it up
+    val IinR = pd_R2 / (r + R)
+    println("I in R=$IinR")
 }
 
 fun example4() {
