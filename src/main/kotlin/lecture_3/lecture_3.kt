@@ -3,7 +3,30 @@ package lecture_3
 import ElectricalCircuits.*
 
 fun main() {
-    `Thévenin’s theorem`()
+    example5()
+}
+
+fun example5() {
+    val E = 12.volt
+    val r1 = 1.ohm
+    val r2 = 5.ohm
+    val r3 = 4.ohm
+
+    val R = 0.8.ohm
+    //del R
+    val I1 = E / (r1 + r2 + r3)
+    println("I1=$I1")
+    val pd_r3 = I1 * r3
+    println("P.d. in r2=$pd_r3")
+    // del E
+    val newR0 = r1 + r2
+    val r = (newR0 * r3) / (newR0 + r3)
+    println("r=$r")
+    // sum it up
+    val IinR = pd_r3 / (R + r)
+    println("I in R=$IinR")
+
+
 }
 
 fun `Thévenin’s theorem`() {
