@@ -3,7 +3,27 @@ package lecture_3
 import ElectricalCircuits.*
 
 fun main() {
-    example6()
+    example7()
+}
+
+fun example7() {
+    val E = 10.volt
+    val R0 = 2.ohm
+    val R1 = 8.ohm
+    val R2 = 5.ohm
+    val R = 10.ohm
+
+    // del R
+    val Isc = E / R0
+    println("Isc=$Isc")
+
+    // del E
+    val r = (R0 * R1) / (R0 + R1)
+    println("r=$r")
+
+    val IinR = (R + R2).CurrentDivider(Isc, r)
+    println("I in R=$IinR")
+
 }
 
 fun example6() {
