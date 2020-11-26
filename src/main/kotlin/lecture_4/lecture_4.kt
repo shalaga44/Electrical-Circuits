@@ -1,13 +1,26 @@
 package lecture_4
 
 import ElectricalCircuits.*
-import kotlin.math.PI
-import kotlin.math.sin
-import kotlin.math.sqrt
-import kotlin.math.tanh
+import kotlin.math.*
 
 fun main() {
-    example6()
+    example7()
+}
+
+fun example7() {
+    val coilR = 4.0
+    val inductance = 9.55 / 1_000
+    val frequency = 50
+    val v = 240
+    val reactance = 2 * PI * frequency * inductance
+    println("reactance=${reactance.ohm}")
+    val impedance = sqrt(coilR.pow(2) + reactance.pow(2))
+    println("impedance=$impedance")
+    val current = v / impedance
+    println("current=$current")
+    val angle = tanh(reactance / coilR)
+    println("angle=${angle / PI * 180}")
+
 }
 
 fun example6() {
