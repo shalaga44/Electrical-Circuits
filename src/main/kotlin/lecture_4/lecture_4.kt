@@ -6,7 +6,26 @@ import kotlin.math.sin
 import kotlin.math.sqrt
 
 fun main() {
-    example2()
+    example3()
+}
+
+fun example3() {
+    val maxValue = 75
+    val anglerVelocity = 200 * PI
+    val angle = -0.25
+    val amplitude = maxValue
+    println("amplitude=${amplitude.V}")
+    val peakToPeak = 2 * maxValue
+    println("peakToPeak=${peakToPeak.V}")
+    val r_m_s = 0.707 * maxValue
+    println("r.m.s=${r_m_s.V}")
+    val periodicTime = 2 * PI / anglerVelocity
+    val frequency = 1.0 / periodicTime
+    println("frequency=${frequency.Hz}")
+    val `phase Angel In Degrees And Minutes Relative To 75 sin 200 PI T` = angle * 180 / PI
+    println("bla = $`phase Angel In Degrees And Minutes Relative To 75 sin 200 PI T`")
+
+
 }
 
 fun example2() {
