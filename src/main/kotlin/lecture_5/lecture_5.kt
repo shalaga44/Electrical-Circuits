@@ -3,7 +3,57 @@ package lecture_5
 import kotlin.math.*
 
 fun main() {
-    example2()
+    example3()
+}
+
+fun example3() {
+    // Xl > Xc
+    // Z = sqrt(R.pow(2) + (Xl - Xc).pow(2))
+    // angle = tanh((Xl - Xc)/R)
+
+    // Xc < Xl
+    // Z = sqrt(R.pow(2) + (Xc - Xl).pow(2))
+    // angle = tanh((Xc - Xl)/R)
+
+    // Xc == Xl
+    // Bla Bla Bla Bla
+
+    val R = 5.0
+    val L = 120.0 / 1_000
+    val C = 100.0 / 1_000_000
+    val V = 300.0
+    val f = 50.0
+    val Xl = 2.0 * PI * f * L
+    val Xc = 1.0 / (2 * PI * f * C)
+    println("Xc=$Xc")
+    println("Xl=$Xl")
+    var Z = 0.0
+    var angle = 0.0
+    if (Xl > Xc) {
+        Z = sqrt(R.pow(2) + (Xl - Xc).pow(2))
+        angle = tanh((Xl - Xc) / R)
+
+    } else if (Xc > Xl) {
+        Z = sqrt(R.pow(2) + (Xc - Xl).pow(2))
+        angle = tanh((Xc - Xl) / R)
+    }
+
+    println("Z=$Z")
+    println("angel=${angle / PI * 180}")
+
+
+    val I = V / Z
+    println("I=$I")
+    val impedanceOfR = sqrt(R.pow(2) + Xl.pow(2))
+    val VinR = I * impedanceOfR
+    println("V in R=$VinR")
+
+    val angleInR = tanh(Xl / R)
+    println("angle=${angleInR / PI * 180}")
+
+    val VinC = I * Xc
+    println("V in C=$VinC")
+
 }
 
 fun example2() {
