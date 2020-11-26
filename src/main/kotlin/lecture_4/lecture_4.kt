@@ -4,9 +4,19 @@ import ElectricalCircuits.*
 import kotlin.math.PI
 import kotlin.math.sin
 import kotlin.math.sqrt
+import kotlin.math.tanh
 
 fun main() {
-    example5()
+    example6()
+}
+
+fun example6() {
+    val pdInR = 12.0
+    val pdInL = 5.0
+    val supplyVoltage = sqrt((pdInR * pdInR) + (pdInL * pdInL))
+    println("supplyVoltage=$supplyVoltage")
+    val angle = tanh(pdInL / pdInR)
+    println("angle=${angle / PI * 180}")
 }
 
 fun example5() {
