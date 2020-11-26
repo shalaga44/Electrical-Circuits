@@ -31,6 +31,7 @@ data class Time(override val value: Double) : PhysicalValue(value) {
 
 val Number.s get() = Time(this.toDouble())
 val Number.seconds get() = Time(this.toDouble())
+val Number.milliseconds get() = Time(this.toDouble() / 1_000)
 val Number.hours get() = Time(this.toDouble() * 3_600)
 
 
@@ -73,6 +74,7 @@ data class Resistance(override val value: Double) : PhysicalValue(value) {
     override fun toString() = "$value Ω"
     fun CurrentDivider(totalCurrent: Current, vararg resistances: Resistance): Current =
         totalCurrent * ((1.0 / (resistances.fold(1.0 / this) { acc, r -> ((1.0 / r) + acc) }) / this))
+
     fun VoaltageDivider(Vin: Voltage, vararg resistances: Resistance): Voltage =
         (Vin * (this.value / (resistances.fold(this) { acc, r -> acc + r })))
 

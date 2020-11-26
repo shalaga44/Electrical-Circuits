@@ -3,8 +3,10 @@ package lecture_3
 import ElectricalCircuits.*
 
 fun main() {
-    example8()
-}
+    `Thévenin’s theorem`()
+}//.637
+//1.11 a
+//m 1.41
 
 fun example8() {
     val E0 = 4.volt
@@ -37,7 +39,7 @@ fun example7() {
     val R = 10.ohm
 
     // del R
-    val Isc = E / R0
+    val Isc: Current = E / R0
     println("Isc=$Isc")
 
     // del E
@@ -78,15 +80,18 @@ fun example5() {
     val r3 = 4.ohm
 
     val R = 0.8.ohm
+
     //del R
     val I1 = E / (r1 + r2 + r3)
     println("I1=$I1")
     val pd_r3 = I1 * r3
     println("P.d. in r2=$pd_r3")
+
     // del E
     val newR0 = r1 + r2
     val r = (newR0 * r3) / (newR0 + r3)
     println("r=$r")
+
     // sum it up
     val IinR = pd_r3 / (R + r)
     println("I in R=$IinR")
@@ -104,7 +109,7 @@ fun `Thévenin’s theorem`() {
     // del R
     val I1 = E / (R1 + R2)
     println("I=$I1")
-    val pd_R2 = I1 * R2
+    val pd_R2: Voltage = I1 * R2
     println("P.d. accros R2=$pd_R2")
 
     // del E
