@@ -1,12 +1,27 @@
 package lecture_5
 
-import kotlin.math.PI
-import kotlin.math.pow
-import kotlin.math.sqrt
-import kotlin.math.tanh
+import kotlin.math.*
 
 fun main() {
-    example1()
+    example2()
+}
+
+fun example2() {
+    val R = 40.0
+    val f = 60
+    val I = 3
+    val Z = 50.0
+    val Xc = sqrt(Z.pow(2) - R.pow(2))
+    println("Xc=$Xc")
+    val C = 1.0 / (2 * PI * f * Xc)
+    println("C=${C / 1_000_000}uF")
+    val angle = tanh(Xc / R)
+    println("angle=${angle / PI * 180}")
+    val pdCrossR = I * R
+    println("p.d. in R=$pdCrossR")
+    val pdCorrsC = I * Xc
+    println("p.d. in R=$pdCorrsC")
+
 }
 
 fun example1() {
