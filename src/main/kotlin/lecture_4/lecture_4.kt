@@ -6,7 +6,14 @@ import kotlin.math.sin
 import kotlin.math.sqrt
 
 fun main() {
-    example4()
+    example5()
+}
+
+fun example5() {
+    val capacitiesReactance = 10.0 / 1_000_000
+    val frequency = 50
+    val Xc = 1.0 / (2 * PI * frequency * capacitiesReactance)
+    println("Xc=${Xc.ohm}")
 }
 
 fun example4() {
