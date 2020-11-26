@@ -6,7 +6,17 @@ import kotlin.math.sin
 import kotlin.math.sqrt
 
 fun main() {
-    example3()
+    example4()
+}
+
+fun example4() {
+    val inductance = 40.0 / 1_000
+    val frequency = 50
+    val purelyInductive = 2 * PI * frequency * inductance
+    println("purelyInductive=${purelyInductive.ohm}")
+    val V = 240
+    val current = V / purelyInductive
+    println("current=$current")
 }
 
 fun example3() {
