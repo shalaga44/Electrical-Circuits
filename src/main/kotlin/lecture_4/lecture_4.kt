@@ -4,9 +4,25 @@ import ElectricalCircuits.*
 import kotlin.math.sqrt
 
 fun main() {
-    example1a()
+    example1b()
 }
 
+fun example1b() {
+    val time = 16.milliseconds.value
+    val maxValue = 10
+    val frequency = 1.0 / time
+    println("frequency=${frequency.Hz}")
+    val base = time / 2.0
+    val areaSqure = base * maxValue
+    val averageValueOfWaveform = areaSqure / base
+    println("averageValueOfWaveform=${averageValueOfWaveform.A}")
+    val r_m_s = sqrt((0..10 step 10).map { it * it }.sum().toDouble())
+    println("r.m.s=${r_m_s.A}")
+    val formFactor = r_m_s / averageValueOfWaveform
+    println("formFactor=$formFactor")
+    val peakValue = maxValue / r_m_s
+    println("peakValue=$peakValue")
+}
 
 fun example1a() {
     // a
