@@ -1,10 +1,25 @@
 package lecture_4
 
 import ElectricalCircuits.*
+import kotlin.math.PI
+import kotlin.math.sin
 import kotlin.math.sqrt
 
 fun main() {
-    example1b()
+    example2()
+}
+
+fun example2() {
+//    val v = 282.8 * sin(314 * t)
+    val maxValue = 282.8
+    val anglerVelocity = 314
+    val r_m_s = 0.707 * maxValue
+    println("r.m.s=${r_m_s.V}")
+    val time = 2 * PI / anglerVelocity
+    val frequency = 1.0 / time
+    println("frequency=${frequency.Hz}")
+    val instantaneousValue = maxValue * sin(anglerVelocity * 4.milliseconds.value)
+    println("instantaneousValue=${instantaneousValue.V}")
 }
 
 fun example1b() {
