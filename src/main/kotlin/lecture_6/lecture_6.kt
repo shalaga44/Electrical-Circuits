@@ -4,7 +4,17 @@ import kotlin.math.*
 
 
 fun main() {
-    example3()
+    example4()
+}
+
+fun example4() {
+    val f = 10.0 * 1_000
+    val L = 20.0 / 1_000
+    val R = 10.0
+    val C = 1.0 / ((2 * PI * f).pow(2) * L)
+    val QFactor = (1.0 / R) * sqrt(L / C)
+    val bandwidth = f / QFactor
+    println("bandwidth=$bandwidth")
 }
 
 fun example3() {
