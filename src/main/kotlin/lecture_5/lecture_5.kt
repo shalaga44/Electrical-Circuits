@@ -3,7 +3,51 @@ package lecture_5
 import kotlin.math.*
 
 fun main() {
-    example3()
+    example4()
+}
+
+fun example4() {
+    // C = 1.0/ ( (1.0/C0) + (1.0/C1) + (1.0/C2) )
+    val V = 40.0
+    val f = 20.0 * 1_000
+    val R0 = 8
+
+    val R1 = 5
+    val Z1 = 130.0 / 1_000_000
+
+    val R2 = 10
+    val C = 0.25 / 1_000_000
+
+    val resistance = (R0 + R1 + R2).toDouble()
+    println("resistance=$resistance")
+    val L = 130.0 / 1_000_000
+    val Xl = 2 * PI * f * L
+    println("inductanceReactance Xl =$Xl")
+    val Xc = 1.0 / (2 * PI * f * C)
+    println("capacitanceReactance Xc=$Xc")
+
+    var Z = 0.0
+    var angle = 0.0
+    if (Xl > Xc) {
+        Z = sqrt(resistance.pow(2) + (Xl - Xc).pow(2))
+        angle = tanh((Xl - Xc) / resistance)
+
+    } else if (Xc > Xl) {
+        Z = sqrt(resistance.pow(2) + (Xc - Xl).pow(2))
+        angle = tanh((Xc - Xl) / resistance)
+    }
+    println("Z=$Z")
+    println("angel=${angle / PI * 180}")
+
+    val I = V / Z
+    println("I=$I")
+    val V0 = I * R0
+    println("V0=$V0")
+    val V1 = I * Xc
+    println("V1=$V1")
+    val V2 = I * Z1
+    println("V2=$V2")
+
 }
 
 fun example3() {
