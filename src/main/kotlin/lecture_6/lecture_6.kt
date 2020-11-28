@@ -4,7 +4,26 @@ import kotlin.math.*
 
 
 fun main() {
-    example2()
+    example3()
+}
+
+fun example3() {
+//    val QFactorL = Vl / V = IXl / IR = Xl / R = (2 * PI * f * L) / R
+//    val QFactorC = Vc / V = IXc / IR = Xc / R = I / (2 * PI * C * R)
+//    val QFactorF = (1.0 / R) * sqrt(L / C)
+    val L = 80.0 / 1_000
+    val C = 0.25 / 1_000_000
+    val R = 12.5
+    val V = 100
+
+    val f = 1.0 / (2 * PI * sqrt(L * C))
+    println("f=$f`")
+    val I = V / R
+    println("I=$I")
+    val Vc = I / (2 * PI * f * C)
+    val QFactorF = Vc / V
+    println("QFactorF=$QFactorF")
+
 }
 
 fun example2() {
