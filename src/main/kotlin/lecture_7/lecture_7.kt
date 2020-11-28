@@ -4,7 +4,27 @@ import kotlin.math.*
 
 
 fun main() {
-    example1()
+    example2()
+}
+
+fun example2() {
+    val C = 30.0 / 1_000_000
+    val R = 80.0
+    val V = 240.0
+    val f = 50.0
+    val Xc = 1.0 / (2 * PI * f * C)
+    val Ic = V / Xc
+    val Ir = V / R
+    val I = sqrt(Ic.pow(2) + Ir.pow(2))
+    println("I=$I")
+    val angel = tanh(Ic / Ir)
+    println("angel=${angel / PI * 180}")
+    val Z = V / I
+    println("Z=$Z")
+    val dissipatedPower = R * Ir.pow(2)
+    println("dissipatedPower=$dissipatedPower")
+    val apparentPower = V * I
+    println("apparentPower=$apparentPower")
 }
 
 fun example1() {
