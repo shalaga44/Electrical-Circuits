@@ -1,11 +1,23 @@
 package ElectricalCircuits
 
-import kotlin.math.round
 import kotlin.math.*
 
 abstract class PhysicalValue(open val value: Double) {
     abstract val symbol: String
-    override fun toString() = "%.4f $symbol".format(value)
+    override fun toString(): String = when {
+        value < 10f.pow(-9) -> "%.1f p$symbol".format(value * 10f.pow(12))
+        value < 10f.pow(-6) -> "%.1f n$symbol".format(value * 10f.pow(9))
+        value < 10f.pow(-3) -> "%.1f µ$symbol".format(value * 10f.pow(6))
+        value < 10f.pow(-1) -> "%.1f m$symbol".format(value * 10f.pow(3))
+        value < 1f -> "%.3f $symbol".format(value)
+        value >= 10f.pow(12) -> "%.1f T$symbol".format(value * 10f.pow(-12))
+        value >= 10f.pow(9) -> "%.1f G$symbol".format(value * 10f.pow(-9))
+        value >= 10f.pow(6) -> "%.1f M$symbol".format(value * 10f.pow(-6))
+        value >= 10f.pow(3) -> "%.1f k$symbol".format(value * 10f.pow(-3))
+        value <= 10f.pow(3) -> "%.1f $symbol".format(value)
+        else -> "!!Bug in PhysicalValueKT::toString ($value $symbol) "
+    }
+
 //    operator fun plus(other: PhysicalValue) = value + other.value
 //    operator fun minus(other: PhysicalValue) = value - other.value
 //    operator fun times(other: PhysicalValue) = value * other.value
