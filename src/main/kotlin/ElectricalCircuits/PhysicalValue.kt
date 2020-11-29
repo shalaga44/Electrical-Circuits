@@ -32,3 +32,12 @@ operator fun Double.rem(v: PhysicalValue): Double = this % v.value
 operator fun Double.times(v: PhysicalValue): Double = this * v.value
 operator fun Double.minus(v: PhysicalValue): Double = this - v.value
 operator fun Double.plus(v: PhysicalValue): Double = this + v.value
+
+fun Number.toTeras() = this.toDouble() * 1_000_000_000_000
+fun Number.toGigas() = this.toDouble() * 1_000_000_000
+fun Number.toMegas() = this.toDouble() * 1_000_000
+fun Number.toKilos() = this.toDouble() * 1_000
+fun Number.toMillis() = this.toDouble() / 1_000
+fun Number.toMicros() = this.toDouble() / 1_000_000
+fun Number.toNonos() = this.toDouble() / 1_000_000_000
+fun Number.toPicos() = this.toDouble() / 1_000_000_000_000
