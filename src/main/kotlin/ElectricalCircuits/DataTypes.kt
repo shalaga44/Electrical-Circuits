@@ -1,10 +1,26 @@
 package ElectricalCircuits
 
+import kotlin.math.PI
+
 data class Frequency(override val value: Double) : PhysicalValue(value) {
     override fun toString() = "$value Hz"
+    operator fun times(l: Inductance) = Frequency_Times_Inductance(this, l)
+}
+
+class Frequency_Times_Inductance(val frequency: Frequency, val inductance: Inductance) {
+    operator fun times(twoPi: My2PI) = InductiveReactance(frequency, inductance)
+
+
+}
+
+// XL
+class InductiveReactance(frequency: Frequency, inductance: Inductance) :
+    Resistance(TwoPi.value * frequency.value * inductance.value) {
+
 }
 
 val Number.Hz get() = Frequency(this.toDouble())
+val Number.kHz get() = Frequency(this.toDouble() * 1_000)
 
 
 data class Length(override val value: Double) : PhysicalValue(value) {
@@ -65,7 +81,7 @@ data class Current(override val value: Double) : PhysicalValue(value) {
 val Number.A get() = Current(this.toDouble())
 val Number.ampere get() = Current(this.toDouble())
 
-data class Resistance(override val value: Double) : PhysicalValue(value) {
+open class Resistance(override val value: Double) : PhysicalValue(value) {
     operator fun times(I: Current): Voltage = (this.value * I.value).volt
     operator fun times(R: Resistance): Resistance = (this.value * R.value).ohm
     operator fun div(R: Resistance): Resistance = (this.value / R.value).ohm
@@ -78,12 +94,20 @@ data class Resistance(override val value: Double) : PhysicalValue(value) {
     fun VoaltageDivider(Vin: Voltage, vararg resistances: Resistance): Voltage =
         (Vin * (this.value / (resistances.fold(this) { acc, r -> acc + r })))
 
-
 }
-
 
 val Number.Ω get() = Resistance(this.toDouble())
 val Number.ohm get() = Resistance(this.toDouble())
+
+data class Inductance(override val value: Double) : PhysicalValue(value) {
+    operator fun times(f: Frequency) = Frequency_Times_Inductance(f, this)
+
+
+}
+
+val Number.H get() = Inductance(this.toDouble())
+val Number.mH get() = Inductance(this.toDouble() / 1_000)
+
 
 data class Voltage(override val value: Double) : PhysicalValue(value) {
     operator fun div(I: Current): Resistance = (this.value / I.value).ohm
@@ -135,4 +159,18 @@ data class Velocity(override val value: Double) : PhysicalValue(value)
 
 val Number.Velocity get() = Velocity(this.toDouble())
 
+class MyOne {
+    operator fun div(t: Time): Frequency = (1.0 / t.value).Hz
+}
 
+class My2PI {
+    operator fun times(fL: Frequency_Times_Inductance) =
+        InductiveReactance(fL.frequency, fL.inductance)
+
+
+    val value = 2 * PI
+
+}
+
+val One = MyOne()
+val TwoPi = My2PI()
