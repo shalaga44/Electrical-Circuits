@@ -1,6 +1,11 @@
 package ElectricalCircuits
 
-open class PhysicalValue(open val value: Double) {
+import kotlin.math.round
+import kotlin.math.*
+
+abstract class PhysicalValue(open val value: Double) {
+    abstract val symbol: String
+    override fun toString() = "%.4f $symbol".format(value)
 //    operator fun plus(other: PhysicalValue) = value + other.value
 //    operator fun minus(other: PhysicalValue) = value - other.value
 //    operator fun times(other: PhysicalValue) = value * other.value

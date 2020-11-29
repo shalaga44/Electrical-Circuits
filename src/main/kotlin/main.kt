@@ -2,16 +2,21 @@ import ElectricalCircuits.*
 import ElectricalCircuits.seconds
 
 fun main() {
-    val t = 10.seconds
-//    val f = One / t
-    val f = 1.kHz
-    val L = 40.mH
-    val V = 100.volt
-    val Xl = (f * L) * TwoPi
-    println("Xl=$Xl")
-    val I = V / Xl
-    println("I=$I")
-
+//    val t = 10.seconds
+////    val f = One / t
+//    val f = 1.kHz
+//    val L = 40.mH
+//    val V = 100.volt
+//    val Xl = (f * L) * TwoPi
+//    println("Xl=$Xl")
+//    val I = V / Xl
+//    println("I=$I")
+    val C = 10.microF
+    println("C=$C")
+    val f = 50.Hz
+    println("f=$f")
+    val Xc = One / (f * C * TwoPi)
+    println("Xc=$Xc")
 
 }
 
