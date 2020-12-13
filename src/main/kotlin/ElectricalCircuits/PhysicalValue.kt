@@ -1,29 +1,51 @@
 package ElectricalCircuits
 
-import kotlin.math.*
+import kotlin.math.pow
+import kotlin.reflect.KFunction
+import kotlin.reflect.typeOf
 
-abstract class PhysicalValue(open val value: Double) {
+@OptIn(ExperimentalStdlibApi::class)
+
+abstract class PhysicalValue(open var value: Double) : Comparable<PhysicalValue> {
     abstract val symbol: String
-    override fun toString(): String = when {
-        value < 10f.pow(-9) -> "%.1f p$symbol".format(value * 10f.pow(12))
-        value < 10f.pow(-6) -> "%.1f n$symbol".format(value * 10f.pow(9))
-        value < 10f.pow(-3) -> "%.1f µ$symbol".format(value * 10f.pow(6))
-        value < 10f.pow(-1) -> "%.1f m$symbol".format(value * 10f.pow(3))
-        value < 1f -> "%.3f $symbol".format(value)
-        value >= 10f.pow(12) -> "%.1f T$symbol".format(value * 10f.pow(-12))
-        value >= 10f.pow(9) -> "%.1f G$symbol".format(value * 10f.pow(-9))
-        value >= 10f.pow(6) -> "%.1f M$symbol".format(value * 10f.pow(-6))
-        value >= 10f.pow(3) -> "%.1f k$symbol".format(value * 10f.pow(-3))
-        value <= 10f.pow(3) -> "%.1f $symbol".format(value)
-        else -> "!!Bug in PhysicalValueKT::toString ($value $symbol) "
+    override fun toString(): String {
+        listOf('p', 'n', 'µ', 'm').zip((12 downTo 3 step 3)).forEach {
+            if (value < 10f.pow(-(it.second - 3)))
+                return "%.1f ${it.first}$symbol".format(value * 10f.pow(it.second))
+        }
+
+        if (value < 1f) return "%.3f $symbol".format(value)
+
+        listOf('T', 'G', 'M', 'k').zip((12 downTo 3 step 3)).forEach {
+            if (value >= 10f.pow(it.second))
+                return "%.1f ${it.first}$symbol".format(value * 10f.pow(-it.second))
+        }
+        if (value <= 10f.pow(3)) return "%.1f $symbol".format(value)
+        return "!!Bug in PhysicalValueKT::toString ($value $symbol)"
     }
 
-//    operator fun plus(other: PhysicalValue) = value + other.value
-//    operator fun minus(other: PhysicalValue) = value - other.value
-//    operator fun times(other: PhysicalValue) = value * other.value
-//    operator fun div(other: PhysicalValue) = value / other.value
-//    operator fun rem(other: PhysicalValue) = value % other.value
+    private val valueConstructor: KFunction<PhysicalValue>
+        get() = this::class.constructors.filter { it.parameters.size == 1 }.first { kFunction ->
+            kFunction.parameters.any {
+                it.index == 0 && it.type == typeOf<Double>() && it.name == "value"
+            }
+        }
 
+    override fun equals(other: Any?): Boolean = if (other is PhysicalValue) this.value == other.value else false
+
+    //    operator fun times(other: PhysicalValue) = valueConstructor.call(this.value * other.value)
+//    operator fun minus(other: PhysicalValue) = valueConstructor.call(this.value - other.value)
+//    operator fun plus(other: PhysicalValue) = valueConstructor.call(this.value + other.value)
+//    operator fun div(other: PhysicalValue) = valueConstructor.call(this.value / other.value)
+//    operator fun rem(other: PhysicalValue) = valueConstructor.call(this.value % other.value)
+    operator fun timesAssign(other: PhysicalValue) = run { this.value *= other.value }
+    operator fun minusAssign(other: PhysicalValue) = run { this.value -= other.value }
+    operator fun plusAssign(other: PhysicalValue) = run { this.value += other.value }
+    operator fun divAssign(other: PhysicalValue) = run { this.value /= other.value }
+    operator fun remAssign(other: PhysicalValue) = run { this.value %= other.value }
+    override fun compareTo(other: PhysicalValue) = value.compareTo(other.value)
+    override fun hashCode(): Int = 31 * value.hashCode() + symbol.hashCode()
+    fun pow(times: Int): Double = this.value.pow(times)
 
 }
 
